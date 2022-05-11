@@ -18,12 +18,10 @@ class MainActivity : AppCompatActivity() {
 
         this.tvStatus = findViewById(R.id.tvStatus)
         this.botao = findViewById(R.id.botao)
-
+        val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
+            this.registerReceiver(null, ifilter)
+        }
        this.botao.setOnClickListener {
-           val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
-               this.registerReceiver(null, ifilter)
-           }
-
            val status: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
            val statusCarregamento: Boolean = status == BatteryManager.BATTERY_STATUS_CHARGING
 
